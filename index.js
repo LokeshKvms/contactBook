@@ -39,8 +39,23 @@ contactForm.addEventListener("submit", (e) => {
   const phone = document.getElementById("phone").value;
   const address = document.getElementById("address").value;
 
+  if (phone.length !== 10) {
+    Toastify({
+      text: "Phone number must be 10 digits",
+      duration: 3000,
+      backgroundColor: "red",
+      close: true,
+    }).showToast();
+    return;
+  }
+
   if (isDuplicateContact(name, email, phone, editingIndex)) {
-    alert("This contact already exists.");
+    Toastify({
+      text: "This contact already exists.",
+      duration: 3000,
+      backgroundColor: "orange",
+      close: true,
+    }).showToast();
     return;
   }
 
@@ -92,6 +107,43 @@ function editContact(index) {
   document.getElementById("address").value = contact.address;
   contactFormModal.style.display = "flex";
   editingIndex = index;
+}
+
+function customAlertWithAnimation(message) {
+  const alertBox = document.createElement("div");
+  alertBox.style.position = "fixed";
+  alertBox.style.top = "50%";
+  alertBox.style.left = "50%";
+  alertBox.style.transform = "translate(-50%, -50%)";
+  alertBox.style.padding = "20px";
+  alertBox.style.backgroundColor = "#f9c74f";
+  alertBox.style.border = "2px solid #f94144";
+  alertBox.style.borderRadius = "10px";
+  alertBox.style.textAlign = "center";
+  alertBox.style.zIndex = "9999";
+  alertBox.style.opacity = "0";
+  alertBox.style.transition = "opacity 0.5s";
+
+  const messageText = document.createElement("p");
+  messageText.textContent = message;
+  alertBox.appendChild(messageText);
+
+  const closeButton = document.createElement("button");
+  closeButton.textContent = "Close";
+  closeButton.onclick = function () {
+    alertBox.style.opacity = "0";
+    setTimeout(() => {
+      alertBox.remove();
+    }, 500);
+  };
+  alertBox.appendChild(closeButton);
+
+  document.body.appendChild(alertBox);
+
+  // Add fade-in effect
+  setTimeout(() => {
+    alertBox.style.opacity = "1";
+  }, 10);
 }
 
 function deleteContact(index) {

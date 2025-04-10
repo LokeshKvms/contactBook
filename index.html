@@ -30,10 +30,10 @@
                 <table id="contactTable">
                     <thead>
                         <tr>
-                            <th onclick="sortContacts('name')">Name <span id="nameSortOrder" class="sort-toggle"></span></th>
-                            <th onclick="sortContacts('email')">Email <span id="emailSortOrder" class="sort-toggle"></span></th>
-                            <th onclick="sortContacts('phone')">Phone Number <span id="phoneSortOrder" class="sort-toggle"></span></th>
-                            <th>Actions</th>
+                            <th style="text-align: center;" onclick="sortContacts('name')">Name <span id="nameSortOrder" class="sort-toggle"></span></th>
+                            <th style="text-align: center;" onclick="sortContacts('email')">Email <span id="emailSortOrder" class="sort-toggle"></span></th>
+                            <th style="text-align: center;" onclick="sortContacts('phone')">Phone Number <span id="phoneSortOrder" class="sort-toggle"></span></th>
+                            <th style="text-align: center;">Actions</th>
                         </tr>
                     </thead>
 
@@ -60,8 +60,8 @@
                         <input type="text" id="address"><br>
 
                         <div class="modal-buttons">
-                            <button type="submit">Save</button>
-                            <button type="button" id="cancelBtn">Cancel</button>
+                            <button type="submit" class="btn btn-info">Save</button>
+                            <button type="button" id="cancelBtn" class="btn btn-danger">Cancel</button>
                         </div>
 
                     </form>

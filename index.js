@@ -76,8 +76,8 @@ function displayContacts() {
       <td>${contact.email}</td>
       <td>${contact.phone}</td>
       <td>
-        <button class="editBtn" onclick="editContact(${index})">Edit</button>
-        <button class="deleteBtn" onclick="deleteContact(${index})">Delete</button>
+        <button class="btn btn-warning m-0" onclick="editContact(${index})">Edit</button>
+        <button class="btn btn-danger m-0" onclick="deleteContact(${index})">Delete</button>
       </td>
     `;
     contactTable.appendChild(row);
@@ -123,8 +123,8 @@ function displayFilteredContacts(filteredContacts) {
       <td>${contact.email}</td>
       <td>${contact.phone}</td>
       <td>
-        <button onclick="editContact(${index})" class="editBtn">Edit</button>
-        <button onclick="deleteContact(${index})" class="deleteBtn">Delete</button>
+        <button onclick="editContact(${index})" class="btn btn-warning m-0">Edit</button>
+        <button onclick="deleteContact(${index})" class="btn btn-danger m-0">Delete</button>
       </td>
     `;
     contactTable.appendChild(row);

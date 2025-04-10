@@ -68,6 +68,7 @@ header {
 
 #contactTable th,
 #contactTable td {
+  cursor: pointer;
   padding: 12px;
   text-align: center;
   border: 1px solid #ddd;

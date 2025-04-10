@@ -7,6 +7,16 @@ const contactForm = document.getElementById("contactForm");
 const searchBox = document.getElementById("searchBox");
 const addContactBtn = document.getElementById("addContactBtn");
 const cancelBtn = document.getElementById("cancelBtn");
+const bgChanger = document.querySelector("h1");
+
+let imgIndex = 0;
+
+bgChanger.addEventListener("click", () => {
+  document.body.style.background = `url('${imgIndex}.jpg')`;
+  document.body.style.backgroundSize = "cover";
+  document.body.style.backgroundRepeat = "no-repeat";
+  imgIndex = (imgIndex + 1) % 3;
+});
 
 addContactBtn.addEventListener("click", () => {
   document.getElementById("name").value = "";
@@ -113,22 +123,47 @@ function displayFilteredContacts(filteredContacts) {
       <td>${contact.email}</td>
       <td>${contact.phone}</td>
       <td>
-        <button onclick="editContact(${index})">Edit</button>
-        <button onclick="deleteContact(${index})">Delete</button>
+        <button onclick="editContact(${index})" class="editBtn">Edit</button>
+        <button onclick="deleteContact(${index})" class="deleteBtn">Delete</button>
       </td>
     `;
     contactTable.appendChild(row);
   });
 }
 
+let sortOrder = {
+  name: "ascending",
+  email: "ascending",
+  phone: "ascending",
+};
+
 function sortContacts(field) {
+  sortOrder[field] =
+    sortOrder[field] === "ascending" ? "descending" : "ascending";
+
   contacts.sort((a, b) => {
-    if (a[field] < b[field]) return -1;
-    if (a[field] > b[field]) return 1;
+    if (sortOrder[field] === "ascending") {
+      if (a[field] < b[field]) return -1;
+      if (a[field] > b[field]) return 1;
+    } else {
+      if (a[field] > b[field]) return -1;
+      if (a[field] < b[field]) return 1;
+    }
     return 0;
   });
+
+  updateSortIcons(field);
   saveContactsToLocalStorage();
   displayContacts();
+}
+
+function updateSortIcons(sortedField) {
+  document.querySelectorAll(".sort-toggle").forEach((span) => {
+    span.innerHTML = "";
+  });
+
+  const sortIcon = sortOrder[sortedField] === "ascending" ? "▲" : "▼";
+  document.getElementById(`${sortedField}SortOrder`).innerHTML = sortIcon;
 }
 
 function saveContactsToLocalStorage() {

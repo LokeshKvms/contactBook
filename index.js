@@ -109,43 +109,6 @@ function editContact(index) {
   editingIndex = index;
 }
 
-function customAlertWithAnimation(message) {
-  const alertBox = document.createElement("div");
-  alertBox.style.position = "fixed";
-  alertBox.style.top = "50%";
-  alertBox.style.left = "50%";
-  alertBox.style.transform = "translate(-50%, -50%)";
-  alertBox.style.padding = "20px";
-  alertBox.style.backgroundColor = "#f9c74f";
-  alertBox.style.border = "2px solid #f94144";
-  alertBox.style.borderRadius = "10px";
-  alertBox.style.textAlign = "center";
-  alertBox.style.zIndex = "9999";
-  alertBox.style.opacity = "0";
-  alertBox.style.transition = "opacity 0.5s";
-
-  const messageText = document.createElement("p");
-  messageText.textContent = message;
-  alertBox.appendChild(messageText);
-
-  const closeButton = document.createElement("button");
-  closeButton.textContent = "Close";
-  closeButton.onclick = function () {
-    alertBox.style.opacity = "0";
-    setTimeout(() => {
-      alertBox.remove();
-    }, 500);
-  };
-  alertBox.appendChild(closeButton);
-
-  document.body.appendChild(alertBox);
-
-  // Add fade-in effect
-  setTimeout(() => {
-    alertBox.style.opacity = "1";
-  }, 10);
-}
-
 function deleteContact(index) {
   if (confirm("Are you sure you want to delete this contact?")) {
     contacts.splice(index, 1);

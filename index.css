@@ -124,6 +124,11 @@ button.deleteBtn {
 button.deleteBtn:hover {
   background-color: #c0392b;
 }
+.search-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 #contactFormModal {
   display: none;

@@ -1,5 +1,10 @@
 let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
 let editingIndex = null;
+let sortOrder = {
+  name: "ascending",
+  email: "ascending",
+  phone: "ascending",
+};
 
 const contactTable = document.querySelector("#contactTable tbody");
 const contactFormModal = document.getElementById("contactFormModal");
@@ -9,14 +14,14 @@ const addContactBtn = document.getElementById("addContactBtn");
 const cancelBtn = document.getElementById("cancelBtn");
 const bgChanger = document.querySelector("h1");
 
-let imgIndex = 0;
+// let imgIndex = 0;
 
-bgChanger.addEventListener("click", () => {
-  document.body.style.background = `url('${imgIndex}.jpg')`;
-  document.body.style.backgroundSize = "cover";
-  document.body.style.backgroundRepeat = "no-repeat";
-  imgIndex = (imgIndex + 1) % 3;
-});
+// bgChanger.addEventListener("click", () => {
+//   document.body.style.background = `url('${imgIndex}.jpg')`;
+//   document.body.style.backgroundSize = "cover";
+//   document.body.style.backgroundRepeat = "no-repeat";
+//   imgIndex = (imgIndex + 1) % 3;
+// });
 
 addContactBtn.addEventListener("click", () => {
   document.getElementById("name").value = "";
@@ -66,10 +71,9 @@ contactForm.addEventListener("submit", (e) => {
   }
 
   saveContactsToLocalStorage();
-
   contactFormModal.style.display = "none";
-
   displayContacts();
+  updateContactCount();
 });
 
 function isDuplicateContact(name, email, phone, excludeIndex = null) {
@@ -82,9 +86,9 @@ function isDuplicateContact(name, email, phone, excludeIndex = null) {
   );
 }
 
-function displayContacts() {
+function displayContacts(filteredContacts = contacts) {
   contactTable.innerHTML = "";
-  contacts.forEach((contact, index) => {
+  filteredContacts.forEach((contact, index) => {
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>${contact.name}</td>
@@ -114,6 +118,7 @@ function deleteContact(index) {
     contacts.splice(index, 1);
     saveContactsToLocalStorage();
     displayContacts();
+    updateContactCount();
   }
 }
 
@@ -126,31 +131,13 @@ searchBox.addEventListener("input", () => {
       contact.phone.toLowerCase().includes(searchTerm) ||
       contact.address.toLowerCase().includes(searchTerm)
   );
-  displayFilteredContacts(filteredContacts);
+  displayContacts(filteredContacts);
 });
 
-function displayFilteredContacts(filteredContacts) {
-  contactTable.innerHTML = "";
-  filteredContacts.forEach((contact, index) => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${contact.name}</td>
-      <td>${contact.email}</td>
-      <td>${contact.phone}</td>
-      <td>
-        <button onclick="editContact(${index})" class="btn btn-warning m-0">Edit</button>
-        <button onclick="deleteContact(${index})" class="btn btn-danger m-0">Delete</button>
-      </td>
-    `;
-    contactTable.appendChild(row);
-  });
-}
-
-let sortOrder = {
-  name: "ascending",
-  email: "ascending",
-  phone: "ascending",
-};
+document.getElementById("clearSearch").addEventListener("click", () => {
+  document.getElementById("searchBox").value = "";
+  displayContacts();
+});
 
 function sortContacts(field) {
   sortOrder[field] =
@@ -185,6 +172,13 @@ function saveContactsToLocalStorage() {
   localStorage.setItem("contacts", JSON.stringify(contacts));
 }
 
+function updateContactCount() {
+  document.getElementById(
+    "contactCount"
+  ).textContent = `Total Contacts: ${contacts.length}`;
+}
+
 window.addEventListener("DOMContentLoaded", () => {
   displayContacts();
+  updateContactCount();
 });

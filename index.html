@@ -22,11 +22,13 @@
             <button id="addContactBtn" class="col-12 col-md-3 btn btn-primary"><i class="fas fa-plus"></i> Add Contact</button>
         </header>
         <hr>
-        <div class="search-section">
-            <div class="search-container col-12">
+        <div class="search-section row">
+            <div class="search-container col-8 mt-3" style="width: 65%;">
                 <input type="text" id="searchBox" placeholder="Search contacts by Name/Phone/Email"
                     class="form-control">
             </div>
+            <button id="clearSearch" class="btn btn-secondary col-2">Clear</button>
+            <div id="contactCount" class="align-self-center text-muted col-2" style="font-weight: 900;">Total Contacts : 0</div>
         </div>
 
         <div class="contacts-container">
